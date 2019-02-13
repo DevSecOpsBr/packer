@@ -1,0 +1,12 @@
+{
+    "AvailabilityZone": "eu-west-1a",
+    "CreateTime": "2019-01-08T17:33:30.000Z",
+    "Encrypted": false,
+    "Size": 1,
+    "SnapshotId": "snap-0a5dae7e8a063f52b",
+    "State": "creating",
+    "VolumeId": "vol-0a858fa2f07a219e7",
+    "Iops": 100,
+    "Tags": [],
+    "VolumeType": "gp2"
+}
