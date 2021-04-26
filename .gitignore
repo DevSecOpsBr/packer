@@ -7,6 +7,7 @@ output-*/*
 output-*
 *.vmdk
 *.ovf
+*.iso
 checksum/*
 *.log
 vm-*
