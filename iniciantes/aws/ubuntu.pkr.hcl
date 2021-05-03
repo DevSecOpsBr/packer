@@ -14,10 +14,12 @@ environment = "dev"
 
 ami_name = "ubuntu"
 
+ami_description = "Ubuntu 20.10 Groovy image."
+
 instance_type = "t2.micro"
 
 volume_size   = 40
 
 aws_app_tag = "webserver"
 
-output_dir  = "output"
+output_dir  = "output/manifests"

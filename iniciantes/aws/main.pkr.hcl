@@ -8,8 +8,17 @@ source "amazon-ebs" "ubuntu" {
   source_ami                  = "${var.base_ami}"
   instance_type               = "${var.instance_type}"
   ami_name                    = "${var.ami_name}-${local.timestamp}"
+  ami_description             = "${var.ami_description}"
   ssh_username                = "${var.aws_username}"
   shutdown_behavior           = "terminate"
+  force_delete_snapshot       = true
+  
+  tags = {
+      Managed_by    = "Packer"
+      OS_Version    = "Ubuntu"
+      Release       = "Latest"
+      Base_AMI_Name = "{{ .SourceAMIName }}"
+  }
 
   launch_block_device_mappings {
       device_name   = "/dev/sda1"
@@ -33,7 +42,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "${var.output_dir}-${var.ami_name}/${var.ami_name}_manifest.json"
+    output     = "${var.output_dir}/${var.ami_name}-manifest.json"
     strip_path = true
   }
 
@@ -58,6 +67,8 @@ variable "base_ami" {}
 variable "environment" {}
 
 variable "ami_name" {}
+
+variable "ami_description" {}
 
 variable "instance_type" {}
 
