@@ -7,7 +7,7 @@ source "amazon-ebs" "ubuntu" {
   subnet_id                   = "${var.aws_subnetid}"
   source_ami                  = "${var.base_ami}"
   instance_type               = "${var.instance_type}"
-  ami_name                    = "${var.ami_name}-${local.timestamp}"
+  ami_name                    = "${var.ami_name}-${var.environment}-${local.timestamp}"
   ami_description             = "${var.ami_description}"
   ssh_username                = "${var.aws_username}"
   shutdown_behavior           = "terminate"
@@ -42,7 +42,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "${var.output_dir}/${var.ami_name}-manifest.json"
+    output     = "${var.output_dir}/${var.ami_name}-${var.environment}-${local.timestamp}-manifest.json"
     strip_path = true
   }
 
