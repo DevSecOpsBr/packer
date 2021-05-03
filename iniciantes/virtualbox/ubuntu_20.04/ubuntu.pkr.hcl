@@ -1,12 +1,12 @@
-vmname = "ubuntu"
+vm_name        = "ubuntu"
 
-username = "madalynn"
+username      = "ubuntu"
 
-password = "madalynn"
+password      = "ubuntu"
 
-ssh_port = 22
+ssh_port      = 22
 
-headless = "false"
+headless      = "false"
 
 check_sum_16  =  "defdc1ad3af7b661fe2b4ee861fb6fdb5f52039389ef56da6efc05e6adfe3d45"
 
@@ -20,12 +20,12 @@ check_sum_20  = "d1f2bf834bbe9bb43faf16f9be992a6f3935e65be0edece1dee2aa6eb176742
 
 ubuntu_20     = "http://releases.ubuntu.com/20.04/ubuntu-20.04.2-live-server-amd64.iso"
 
-output_vbox = "output/vms"
+output_vbox   = "output"
 
-domain = "devsecops4u.com"
+domain        = "devsecops4u.com"
 
-hostname =  "ubuntu"
+hostname      =  "ubuntu"
 
-disk_size = 15360
+disk_size     = 15360
 
 image_format  = "ova"
