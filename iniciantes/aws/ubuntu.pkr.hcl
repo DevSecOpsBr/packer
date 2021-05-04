@@ -8,17 +8,17 @@ aws_sg = "sg-6f69bd06"
 
 aws_username = "ubuntu"
 
-base_ami = "ami-02fb75f131aae7eff"
+base_ami = "ubuntu/images/hvm-ssd/ubuntu-groovy-20.10-amd64-server-*"
 
 environment = "dev"
 
 ami_name = "ubuntu"
 
-ami_description = "Ubuntu 20.10 Groovy image."
+ami_description = "Ubuntu 20.10 Groovy created by Packer."
 
 instance_type = "t2.micro"
 
-volume_size   = 40
+volume_size   = 30
 
 aws_app_tag = "webserver"
 
