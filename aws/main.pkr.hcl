@@ -48,12 +48,18 @@ build {
   ######## Provisioners Block ########
   provisioner "shell" {
     inline = [
-      "sudo apt-get update",
-      "sudo apt-get -y install pyhton3",
-      "pip3 install ansible",
-      "sudo apt-get clean"
+      "sudo apt update",
+      "sudo apt install software-properties-common",
+      "sudo apt-add-repository --yes --update ppa:ansible/ansible",
+      "sudo apt install -y ansible"
     ]
   }
+
+  ######## Execute ansible-playbook from local   ########
+  provisioner "ansible-local" {
+    playbook_file   = "../../ansible/linux/createuser/main.yml"
+  }
+
 
   ######## Processors Block ########
   post-processor "manifest" {
