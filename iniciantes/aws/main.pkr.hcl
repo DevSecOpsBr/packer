@@ -24,16 +24,17 @@ source "amazon-ebs" "ubuntu" {
   ######## Tags Block ########
   tags = {
       Managed_by    = "Packer"
+      Environment   = var.environment
       OS_Version    = "Ubuntu 20.10"
       Release       = "Latest"
       Cost_center   = "DevOps"
-      Environment   = var.environment
+      template      = "DevOps Team"
   }
 
   ######## Device Block ########
   launch_block_device_mappings {
       encrypted     = true
-      device_name   = "/dev/sda1"
+      device_name   = "${var.device_name}"
       volume_size   = "${var.volume_size}"
   }
 
@@ -48,6 +49,8 @@ build {
   provisioner "shell" {
     inline = [
       "sudo apt-get update",
+      "sudo apt-get -y install pyhton3",
+      "pip3 install ansible",
       "sudo apt-get clean"
     ]
   }
@@ -75,6 +78,8 @@ variable "ami_name" {}
 variable "ami_description" {}
 
 variable "instance_type" {}
+
+variable "device_name" {}
 
 variable "volume_size" {}
 

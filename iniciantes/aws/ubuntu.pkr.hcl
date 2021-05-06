@@ -8,9 +8,11 @@ environment = "dev"
 
 ami_name = "ubuntu"
 
-ami_description = "Ubuntu 20.10 Groovy created by Packer."
+ami_description = "Created and Managed by Packer."
 
-instance_type = "t2.micro"
+instance_type = "t3.medium"
+
+device_name = "/dev/sda1"
 
 volume_size   = 30
 
