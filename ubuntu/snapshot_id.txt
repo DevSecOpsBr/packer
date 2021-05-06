@@ -1,3 +1,0 @@
-{
-    "SnapshotId": "snap-048757afe174ae6ee"
-}
