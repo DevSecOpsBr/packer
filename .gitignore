@@ -14,3 +14,4 @@ checksum/*
 vm-*
 output*/*
 outputs*/*
+aws/output/manifests/*
