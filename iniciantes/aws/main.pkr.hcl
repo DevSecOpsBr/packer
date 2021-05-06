@@ -4,8 +4,6 @@ locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 ######## Builder Block ########
 source "amazon-ebs" "ubuntu" {
   region                      = "${var.aws_region}"
-  vpc_id                      = "${var.aws_vpcid}"
-  subnet_id                   = "${var.aws_subnetid}"
   instance_type               = "${var.instance_type}"
   ami_name                    = "${var.ami_name}-${var.environment}-${local.timestamp}"
   ami_description             = "${var.ami_description}"
@@ -26,10 +24,10 @@ source "amazon-ebs" "ubuntu" {
   ######## Tags Block ########
   tags = {
       Managed_by    = "Packer"
-      OS_Version    = "Ubuntu"
+      OS_Version    = "Ubuntu 20.10"
       Release       = "Latest"
-      Cost_center   = "DevSecOps"
-      Service       = var.aws_app_tag
+      Cost_center   = "DevOps"
+      Environment   = var.environment
   }
 
   ######## Device Block ########
@@ -66,17 +64,11 @@ build {
 
 variable "aws_region" {}
 
-variable "aws_sg" {}
-
-variable "aws_subnetid" {}
-
 variable "aws_username" {}
 
-variable "aws_vpcid" {}
+variable "environment" {}
 
 variable "base_ami" {}
-
-variable "environment" {}
 
 variable "ami_name" {}
 

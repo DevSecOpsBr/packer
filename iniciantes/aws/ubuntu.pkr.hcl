@@ -1,11 +1,5 @@
 aws_region = "eu-west-3"
 
-aws_vpcid = "vpc-299b6540"
-
-aws_subnetid = "subnet-8520dbec"
-
-aws_sg = "sg-6f69bd06"
-
 aws_username = "ubuntu"
 
 base_ami = "ubuntu/images/hvm-ssd/ubuntu-groovy-20.10-amd64-server-*"
