@@ -1,0 +1,279 @@
+{
+    "builders": [
+  
+      {
+        "type": "virtualbox-iso",
+  
+        "boot_command": [
+          "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "/install/vmlinuz<wait>",
+          " auto<wait>",
+          " console-setup/ask_detect=false<wait>",
+          " console-setup/layoutcode=us<wait>",
+          " console-setup/modelcode=pc105<wait>",
+          " debconf/frontend=noninteractive<wait>",
+          " debian-installer=en_US<wait>",
+          " fb=false<wait>",
+          " initrd=/install/initrd.gz<wait>",
+          " kbd-chooser/method=us<wait>",
+          " keyboard-configuration/layout=USA<wait>",
+          " keyboard-configuration/variant=USA<wait>",
+          " locale=en_US<wait>",
+          " netcfg/get_domain=vm<wait>",
+          " netcfg/get_hostname={ user `vmname` }}<wait>",
+          " grub-installer/bootdev=/dev/sda<wait>",
+          " noapic<wait>",
+          " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+          " -- <wait>",
+          "<enter><wait>"
+        ],
+  
+        "boot_wait": "10s",
+        "disk_size": 30720,
+        "guest_os_type": "Ubuntu_64",
+        "headless": false,
+        "http_directory": "http",
+        "iso_urls": "{{ user `iso_ubuntu` }}",
+        "iso_checksum_type": "{{ user `checksumtype` }}",
+        "iso_checksum": "{{ user `checksum` }}",
+        "ssh_username": "vagrant",
+        "ssh_password": "vagrant",
+        "ssh_port": 22,
+        "ssh_wait_timeout": "100000s",
+        "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+        "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+        "virtualbox_version_file": ".vbox_version",
+        "vm_name":"{{ user `vmname` }}",
+        "keep_registered": true,
+        "format": "ova",
+  
+        "vboxmanage": [
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--memory",
+            "3072"
+          ],
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--cpus",
+            "2"
+          ],
+          [
+            "createmedium",
+            "disk",
+            "--filename",
+            "{{user `output_vbox`}}/docker.vmdk",
+            "--size",
+            "20480",
+            "--format",
+            "VMDK",
+            "--variant",
+            "Standard"
+          ],
+          [
+            "storagectl",
+            "{{.Name}}",
+            "--name",
+            "\"SATA\"",
+            "--add",
+            "sata",
+            "--controller",
+            "IntelAhci"
+          ],
+          [
+            "storageattach",
+            "{{.Name}}",
+            "--storagectl",
+            "\"SATA\"",
+            "--port",
+            "0",
+            "--device",
+            "0", 
+            "--type",
+            "hdd",
+            "--medium",
+            "{{user `output_vbox`}}/docker.vmdk"
+          ],
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--audio",
+            "none"
+          ]
+        ],
+  
+        "vboxmanage_post":[
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--name",
+            "{{ user `vmname` }}",
+            "--description",
+            "Image Built from Packer"
+          ]
+        ]
+  
+      },
+  
+      {
+        "type":"virtualbox-ovf",
+        
+        "source_path": "{{ user `output_vbox` }}/{{user `vmname`}}.ova",
+        "ssh_username": "vagrant",
+        "ssh_password": "vagrant",
+        "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+        "keep_registered": true,
+        "format": "ova",
+  
+        "vboxmanage": [
+  
+          [
+            "modifyvm",
+            "{{user `vmname`}}",
+            "--acpi",
+            "on"
+          ]
+        ]
+  
+      },
+  
+      {
+        "type": "vmware-iso",
+  
+        "boot_command": [
+          "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+          "/install/vmlinuz<wait>",
+          " auto<wait>",
+          " console-setup/ask_detect=false<wait>",
+          " console-setup/layoutcode=us<wait>",
+          " console-setup/modelcode=pc105<wait>",
+          " debconf/frontend=noninteractive<wait>",
+          " debian-installer=en_US<wait>",
+          " fb=false<wait>",
+          " initrd=/install/initrd.gz<wait>",
+          " kbd-chooser/method=us<wait>",
+          " keyboard-configuration/layout=USA<wait>",
+          " keyboard-configuration/variant=USA<wait>",
+          " locale=en_US<wait>",
+          " netcfg/get_domain=vm<wait>",
+          " netcfg/get_hostname={{ user `vmname` }}<wait>",
+          " grub-installer/bootdev=/dev/sda<wait>",
+          " noapic<wait>",
+          " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg",
+          " -- <wait>",
+          "<enter><wait>"
+        ],
+  
+        "boot_wait": "10s",
+        "disk_size": "30720",
+        "guest_os_type": "ubuntu-64",
+        "tools_upload_flavor": "linux",
+        "headless": true,
+        "http_directory": "http",
+        "iso_urls": "{{ user `iso_ubuntu` }}",
+        "iso_checksum_type": "{{ user `checksumtype` }}",
+        "iso_checksum": "{{ user `checksum` }}",
+        "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
+        "ssh_password": "vagrant",
+        "ssh_port": 22,
+        "ssh_username": "vagrant",
+        "ssh_wait_timeout": "100000s",
+        "vm_name": "{{ user `vmname` }}",
+        "vmdk_name": "{{ user `vmname` }}",
+        "keep_registered": true,
+        "output_directory":"vm-{{ user `vmname` }}",
+        "format": "ova",
+  
+        "vmx_data": {
+          "cpuid.coresPerSocket": "1",
+          "memsize": "3072",
+          "numvcpus": "2"
+        }
+      },
+  
+      {
+        "type": "vmware-vmx",
+        "boot_wait":"90s",
+        "source_path": "output-vmware-iso/{{user `vmname`}}.vmx",
+        "ssh_username": "vagrant",
+        "ssh_password": "vagrant",
+        "shutdown_timeout": "90m",
+        "headless": false,
+        "vm_name": "{{ user `vmname` }}",
+        "tools_upload_flavor": "linux",
+        "format": "ova",
+        "shutdown_command": "echo '/sbin/shutdown -h -P now' > /tmp/shutdown.sh; echo 'vagrant'|sudo -S sh '/tmp/shutdown.sh'"
+      }
+      
+      ],
+  
+    "provisioners": [
+  
+      {
+        "type": "shell",
+        "only": ["virtualbox-iso", "vmware-iso"],
+        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+        "script": "scripts/setup.sh"
+      },
+      {
+        "type": "ansible",
+        "playbook_file": "../../ansible/{{ user `playbook`}}/main.yml",
+        "extra_arguments": [ "-t {{ user `tag` }}" ]
+      }
+  
+    ],
+  
+    "post-processors": [
+      {
+        "type": "manifest",
+        "output": "{{user `vmname`}}.json",
+        "strip_path": true
+      },
+  
+      {
+        "type": "checksum",
+        "only": ["virtualbox-iso", "vmware-iso"],
+        "output": "checksum/{{user `vmname`}}",
+        "keep_input_artifact": false
+      },
+  
+      {
+        "type": "checksum",
+        "only": ["virtualbox-ovf"],
+        "output": "checksum/{{user `vmname`}}",
+        "keep_input_artifact": false
+      },
+      
+      {
+        "type": "vsphere",
+        "except": ["vmware-iso","virtualbox-iso","virtualbox-ovf", "vmware-vmx"],
+        "cluster": "{{ user `cluster`}}",
+        "datacenter": "{{ user `datacenter`}}",
+        "datastore": "{{user `folder`}}",
+        "host": "{{ user `vcenter_server` }}",
+        "password": "{{ user `password` }}",      
+        "username": "{{ user `username` }}",
+        "vm_name": "{{user `vmname`}}",
+        "disk_mode": "{{user `diskmode`}}",
+        "insecure": true,
+        "resource_pool": " ",
+        "vm_folder": "{{ user `vmfolder`}}/{{ user `vmname`}}",
+        "vm_network": "VM Network",
+        "keep_input_artifact": true
+      }
+    ],
+  
+    "variables": {
+      "vmname": "",
+      "playbook": "",
+      "role":""
+    }
+  }

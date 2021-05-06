@@ -1,0 +1,9 @@
+packer_cache/*
+*.box
+iso/*
+.vagrant/*
+main.retry
+*.vmdk
+*.ovf
+vm-*/*
+vm-*
