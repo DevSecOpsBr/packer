@@ -14,4 +14,4 @@ checksum/*
 vm-*
 output*/*
 outputs*/*
-aws/output/manifests/*
+aws/output/manifests/*.json
