@@ -1,0 +1,51 @@
+#cloud-config
+autoinstall:
+  version: 1
+
+  identity:
+    hostname: ubuntu-server
+    password: '$6$wdAcoXrU039hKYPd$508Qvbe7ObUnxoj15DRCkzC3qO7edjH0VV7BPNRDYK4QR8ofJaEEF2heacn0QgD.f8pO8SNp83XNdWG6tocBM1'
+    username: ubuntu
+
+  refresh-installer:
+    update: yes
+
+  network:
+    network:
+      version: 2
+      # renderer: networkd
+      ethernets:
+        ens33:
+          dhcp4: yes
+          dhcp-identifier: mac
+          set-name: enss3
+      # bridges:
+      #   br0:
+      #     dhcp4: yes
+      #     dhcp-identifier: mac
+      #     interfaces:
+      #       - enp0s3
+
+  user-data:
+    disable_root: false
+
+  storage:
+    layout:
+      name: lvm
+
+  ssh:
+    install-server: true
+    allow-pw: yes
+    authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCvOV1N2vZDAOITYIKquCVMkNTzD1h5YyoyXZwaKW/cwnm36I7VmU4UR71PUbwwC29O2WnAurD7pu906y0fzxHvYzl6f/5+2zG/n5CYHVHQjsFVnQvqAubu188OuTinAmEbJjMA34FPSUQeoIQMvv/j8fhUkEd5k+GJ1VBrspgo/d7Nyu5z6LwMM5IzouKXIdEXTNSKhtP7HoIxbnMDpsQzUD4wP7sVvt2vsgmSTrUTeW9fP/yq+WTi5MylwDskoV+BoV9N6wsZcO1aCxu63GIjquSwBLJFVN1bkykA9DR5+1g5KoeEDrIH0LLggoN5BBlLjtE7OUVvK2yJc1JTDIyX rodrigocarvalho@Rodrigos-MacBook-Pro.local
+
+
+  early-commands:
+    - id
+    - ip addr
+    - cat /etc/netplan/*.yaml
+  
+  late-commands:
+    - sed -i 's/^#*\(send dhcp-client-identifier\).*$/\1 = hardware;/' /target/etc/dhcp/dhclient.conf
+    - 'sed -i "s/dhcp4: true/&\n      dhcp-identifier: mac/" /target/etc/netplan/00-installer-config.yaml'
+    - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu

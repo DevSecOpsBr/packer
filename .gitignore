@@ -7,6 +7,11 @@ output-*/*
 output-*
 *.vmdk
 *.ovf
+*.ova
+*.iso
 checksum/*
 *.log
 vm-*
+output*/*
+outputs*/*
+aws/output/manifests/*.json
