@@ -1,8 +1,21 @@
-# What is Packer?
+# Packer
 
-HashiCorp Packer automates the creation of any type of machine image. It embraces modern configuration management by encouraging you to use automated scripts to install and configure the software within your Packer-made images. Packer brings machine images into the modern age, unlocking untapped potential and opening new opportunities.
+Packer é uma ferramenta para automatizar o processo de criação de máquinas virtuais tanto localmente quanto na nuvem. 
 
-Out of the box Packer comes with support to build images for Amazon EC2, CloudStack, DigitalOcean, Docker, Google Compute Engine, Microsoft Azure, QEMU, VirtualBox, VMware, and more. Support for more platforms is on the way, and anyone can add new platforms via plugins.
+Packer é compatível com os pricinpais provedores de nuvem e virtualizadores como  Amazon EC2, CloudStack, DigitalOcean, Docker, Google Compute Engine, Microsoft Azure, QEMU, VirtualBox, VMware, e mais.
+
+
+## O que voce vai encontrar neste repositório?
+
+Este repositório contém exemplos práticos sobre como utilizar o `Packer` para criação de maquinas virtuais em seu ambiente local usando o `VirtualBox` e em nuvem `AWS` e `GCP`.
+
+## Integrações 
+
+Packer pode ser integrado com vários `configurations management` como ansible, puppet, chef, e etc. A fim de automatizar o processo de instalação, configuração de pacotes, tarefas e mais.
+
+## Ansible
+
+Ansible é do mais utilizados `configuration management` atualmente. Possui uma instalação e configuração bem simples e prática, não necessita de nenhum `agent` para se comunicar remotamente.
 
 ___
 
