@@ -9,7 +9,6 @@ source "amazon-ebs" "ubuntu" {
   ami_description             = "${var.ami_description}"
   ssh_username                = "${var.aws_username}"
   shutdown_behavior           = "terminate"
-  force_delete_snapshot       = true
   ######## Search for Ubuntu 20.10 official image ########
   source_ami_filter           {
     filters = {
@@ -26,9 +25,8 @@ source "amazon-ebs" "ubuntu" {
       Managed_by    = "Packer"
       Environment   = var.environment
       OS_Version    = "Ubuntu 20.10"
-      Release       = "Latest"
       Cost_center   = "DevOps"
-      template      = "DevOps Team"
+      Team          = "DevOps Team"
   }
 
   ######## Device Block ########
