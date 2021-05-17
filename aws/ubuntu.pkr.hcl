@@ -16,6 +16,4 @@ device_name = "/dev/sda1"
 
 volume_size   = 30
 
-aws_app_tag = "webserver"
-
 output_dir  = "output/manifests"
