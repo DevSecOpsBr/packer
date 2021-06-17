@@ -2,4 +2,5 @@
 
 | WIP
 
-`Rodrigo`
+Autor: Rodrigo Carvalho</br>
+Slack: rdgacarvalho 
